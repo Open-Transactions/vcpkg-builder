@@ -9,17 +9,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-11, macos-12, windows-2019, windows-2022]
+        platform: [macos-12, windows-2022]
         include:
-          - platform: macos-11
-            vcpkg: '/usr/local/share/vcpkg'
-            triplet: 'x64-osx-11'
           - platform: macos-12
             vcpkg: '/usr/local/share/vcpkg'
             triplet: 'x64-osx-11'
-          - platform: windows-2019
-            vcpkg: 'C:\vcpkg'
-            triplet: 'x64-windows'
           - platform: windows-2022
             vcpkg: 'C:\vcpkg'
             triplet: 'x64-windows'
