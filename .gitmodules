@@ -1,0 +1,4 @@
+[submodule "overlay"]
+	path = overlay
+	url = https://github.com/Open-Transactions/vcpkg-overlay
+	shallow = true
