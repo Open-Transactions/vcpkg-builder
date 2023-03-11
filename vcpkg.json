@@ -33,6 +33,7 @@
     "pthread",
     "qtbase",
     "qtdeclarative",
+    "qtsvg",
     "sqlite3",
     "tbb",
     {
