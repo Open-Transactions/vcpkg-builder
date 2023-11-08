@@ -18,7 +18,7 @@ jobs:
             vcpkg: 'C:\vcpkg'
             triplet: 'x64-windows'
     env:
-      VCPKG_COMMIT_ID: '8eb57355a4ffb410a2e94c07b4dca2dffbee8e50'
+      VCPKG_COMMIT_ID: '45f34d72b947e078be51cb33f0f9b9e8d5412983'
       VCPKG_ROOT: '${{ matrix.vcpkg }}'
       VCPKG_INSTALLED_DIR: '${{ github.workspace }}/deps/vcpkg_installed/${{ matrix.platform }}'
       VCPKG_DEFAULT_TRIPLET: '${{ matrix.triplet }}'
