@@ -80,6 +80,7 @@
         "qtbase",
         "qtdeclarative",
         "qtsvg",
+        "secp256k1",
         "sqlite3",
         "tbb",
         {
