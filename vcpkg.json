@@ -71,6 +71,7 @@
         "boost-variant2",
         "boost-winapi",
         "gtest",
+        "libguarded",
         "libsodium",
         "lmdb",
         "openssl",
@@ -81,6 +82,7 @@
         "qtdeclarative",
         "qtsvg",
         "secp256k1",
+        "simpleini",
         "sqlite3",
         "tbb",
         {
