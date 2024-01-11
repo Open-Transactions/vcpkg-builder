@@ -70,6 +70,7 @@
         "boost-unordered",
         "boost-variant2",
         "boost-winapi",
+        "cmakerc",
         "gtest",
         "libguarded",
         "libsodium",
