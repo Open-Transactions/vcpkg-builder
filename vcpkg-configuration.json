@@ -1,0 +1,17 @@
+{
+    "default-registry": {
+        "kind": "git",
+        "repository": "https://github.com/microsoft/vcpkg",
+        "baseline": "8ccb84df727bdf83045e53c319af05c554838b80"
+    },
+    "registries": [
+        {
+            "kind": "git",
+            "repository": "https://github.com/Open-Transactions/vcpkg-registry",
+            "baseline": "4188c21ea4f472b5b462f12264b3ea7c667c9318",
+            "packages": [
+                "otcommon"
+            ]
+        }
+    ]
+}

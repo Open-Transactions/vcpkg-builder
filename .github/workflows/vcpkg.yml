@@ -21,11 +21,9 @@ jobs:
             runner: 'windows-2022-xl8'
             triplet: 'x64-windows'
     env:
-      VCPKG_COMMIT_ID: '8ccb84df727bdf83045e53c319af05c554838b80'
-      VCPKG_INSTALLED_DIR: '${{ github.workspace }}/deps/vcpkg_installed/${{ matrix.platform }}'
+      VCPKG_INSTALLED_DIR: '${{ github.workspace }}/vcpkg_installed/${{ matrix.platform }}'
       VCPKG_DEFAULT_TRIPLET: '${{ matrix.triplet }}'
       VCPKG_OVERLAY_TRIPLETS: '${{ github.workspace }}/overlay/triplets'
-      VCPKG_OVERLAY_PORTS: '${{ github.workspace }}/overlay/ports'
     steps:
       - name: Setup XCode
         if: runner.os == 'macOS'
@@ -49,8 +47,6 @@ jobs:
         if: runner.os != 'Windows'
         uses: lukka/run-vcpkg@v11
         with:
-          vcpkgDirectory: '${{ github.workspace }}/vcpkg'
-          vcpkgGitCommitId: '${{ env.VCPKG_COMMIT_ID }}'
           vcpkgJsonGlob: 'vcpkg.json'
           runVcpkgInstall: true
       - name: Run vcpkg
@@ -58,12 +54,11 @@ jobs:
         uses: lukka/run-vcpkg@v11
         with:
           vcpkgDirectory: 'c:\vcpkg'
-          vcpkgGitCommitId: '${{ env.VCPKG_COMMIT_ID }}'
           vcpkgJsonGlob: 'vcpkg.json'
           runVcpkgInstall: true
       - name: Compress packages
         run: |
-          tar -czpf '${{ github.workspace }}/${{ matrix.platform }}.tar.gz' -C '${{ github.workspace }}/deps/vcpkg_installed' '${{ matrix.platform }}'
+          tar -czpf '${{ github.workspace }}/${{ matrix.platform }}.tar.gz' -C '${{ github.workspace }}/vcpkg_installed' '${{ matrix.platform }}'
       - name: Upload packages
         uses: actions/upload-artifact@v3
         with:
