@@ -23,6 +23,7 @@ jobs:
     env:
       VCPKG_INSTALLED_DIR: '${{ github.workspace }}/vcpkg_installed/${{ matrix.platform }}'
       VCPKG_DEFAULT_TRIPLET: '${{ matrix.triplet }}'
+      VCPKG_DEFAULT_HOST_TRIPLET: '${{ matrix.triplet }}'
       VCPKG_OVERLAY_TRIPLETS: '${{ github.workspace }}/overlay/triplets'
     steps:
       - name: Setup XCode
