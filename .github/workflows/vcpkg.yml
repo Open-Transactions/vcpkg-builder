@@ -12,10 +12,10 @@ jobs:
         platform: [macos-14-intel, macos-14-arm, windows-2022]
         include:
           - platform: macos-14-intel
-            runner: 'macos-13-large'
+            runner: 'macos-14-large'
             triplet: 'x64-osx-14'
           - platform: macos-14-arm
-            runner: 'macos-13-xlarge'
+            runner: 'macos-14-xlarge'
             triplet: 'arm64-osx-14'
           - platform: windows-2022
             runner: 'windows-2022-xl8'
