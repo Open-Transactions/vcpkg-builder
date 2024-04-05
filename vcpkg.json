@@ -47,13 +47,7 @@
             "name": "pthread",
             "platform": "windows"
         },
-        {
-            "name": "qtbase",
-            "default-features": false,
-            "features": [
-                "gui"
-            ]
-        },
+        "qtbase",
         "qtdeclarative",
         "secp256k1",
         "simpleini",
