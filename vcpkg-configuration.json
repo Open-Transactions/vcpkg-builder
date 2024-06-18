@@ -2,15 +2,14 @@
     "default-registry": {
         "kind": "git",
         "repository": "https://github.com/microsoft/vcpkg",
-        "baseline": "11ed79186fe850bd3a98cfbf1854514d2b3070a2"
+        "baseline": "f7423ee180c4b7f40d43402c2feb3859161ef625"
     },
     "registries": [
         {
             "kind": "git",
             "repository": "https://github.com/Open-Transactions/vcpkg-registry",
-            "baseline": "eddf13fee1813c50542a5665e103ed144d451db2",
+            "baseline": "d84bea05d209a7d740f4f33e634e04dc3b15b909",
             "packages": [
-                "libsodium",
                 "otcommon"
             ]
         }

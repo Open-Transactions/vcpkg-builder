@@ -2,7 +2,7 @@
   "$schema":
       "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
   "name": "opentxs-dependency-builder",
-  "builtin-baseline": "8ccb84df727bdf83045e53c319af05c554838b80",
+  "builtin-baseline": "f7423ee180c4b7f40d43402c2feb3859161ef625",
   "version": "1",
     "dependencies": [
         "boost-algorithm",
@@ -25,6 +25,7 @@
         "boost-move",
         "boost-multiprecision",
         "boost-program-options",
+        "boost-scope",
         "boost-smart-ptr",
         "boost-stacktrace",
         "boost-system",
