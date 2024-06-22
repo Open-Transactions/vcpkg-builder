@@ -39,10 +39,7 @@
         "libsodium",
         "lmdb",
         "openssl",
-        {
-            "name": "otcommon",
-            "version>=": "3.0.0"
-        },
+        "otcommon",
         "protobuf",
         {
             "name": "pthread",
