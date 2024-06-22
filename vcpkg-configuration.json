@@ -8,7 +8,7 @@
         {
             "kind": "git",
             "repository": "https://github.com/Open-Transactions/vcpkg-registry",
-            "baseline": "89e496e9ff13575cc586b3ae3d4a2b2ddb5d5b2f",
+            "baseline": "ab9c0ab78566f9da15492bc432786b3c5a3092ed",
             "packages": [
                 "otcommon"
             ]
