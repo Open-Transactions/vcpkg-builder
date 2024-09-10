@@ -9,62 +9,55 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-14-intel, macos-14-arm, windows-2022]
+        platform: [macos-arm64, macos-x64, windows-x64, android-arm64, android-x64]
         include:
-          - platform: macos-14-intel
+          - platform: macos-arm64
             runner: 'macos-14-large'
-            triplet: 'x64-osx-14'
-          - platform: macos-14-arm
+          - platform: macos-x64
             runner: 'macos-14-xlarge'
-            triplet: 'arm64-osx-14'
-          - platform: windows-2022
+          - platform: windows-x64
             runner: 'windows-2022-xl8'
-            triplet: 'x64-windows'
-    env:
-      VCPKG_INSTALLED_DIR: '${{ github.workspace }}/vcpkg_installed/${{ matrix.platform }}'
-      VCPKG_DEFAULT_TRIPLET: '${{ matrix.triplet }}'
-      VCPKG_DEFAULT_HOST_TRIPLET: '${{ matrix.triplet }}'
-      VCPKG_OVERLAY_TRIPLETS: '${{ github.workspace }}/overlay/triplets'
+          - platform: android-arm64
+            runner: 'ubuntu-latest'
+          - platform: android-x64
+            runner: 'ubuntu-latest'
     steps:
       - name:  Get more disk space
         run:   |
-            if [ "$RUNNER_OS" == "Linux" ]; then
-                sudo rm -rvf /usr/lib/mono
-                sudo rm -rvf /usr/local/lib/android
-                sudo rm -rvf /usr/local/share/vcpkg
-                sudo rm -rvf /usr/share/miniconda
-            elif [ "$RUNNER_OS" == "macOS" ]; then
-                sudo rm -rvf "/Applications/Xcode_14.3.1.app"
-                sudo rm -rvf "/Library/Frameworks/Mono.framework"
-                sudo rm -rvf "/Users/runner/Library/Android"
-                sudo rm -rvf "/usr/bin/link"
-                sudo rm -rvf "/usr/bin/link"
-                sudo rm -rvf "/usr/local/miniconda"
-                sudo rm -rvf "/usr/local/opt/geckodriver/bin"
-                sudo rm -rvf "/usr/local/share/chromedriver-mac-x64"
-                sudo rm -rvf "/usr/local/share/edge_driver"
-                sudo rm -rvf "/usr/local/share/vcpkg"
-                sudo rm -rvf '${GOROOT_1_20_X64}'
-                sudo rm -rvf '${GOROOT_1_21_X64}'
-                sudo rm -rvf '${GOROOT_1_22_X64}'
-                sudo rm -rvf '${JAVA_HOME_8_X64}'
-                sudo rm -rvf '${JAVA_HOME_11_X64}'
-                sudo rm -rvf '${JAVA_HOME_17_X64}'
-                sudo rm -rvf '${JAVA_HOME_21_X64}'
-            elif [ "$RUNNER_OS" == "Windows" ]; then
-                rm -rvf "C:\Android"
-                rm -rvf "C:\Miniconda"
-                rm -rvf "C:\Program Files\dotnet"
-                rm -rvf "C:\SeleniumWebDrivers\"
-                rm -rvf "C:\selenium\"
-                rm -rvf "C:\tools\Apache24"
-                rm -rvf "C:\tools\nginx-1.27.0"
-                rm -rvf "C:\vcpkg"
-                rm -rvf '${JAVA_HOME_8_X64}'
-                rm -rvf '${JAVA_HOME_11_X64}'
-                rm -rvf '${JAVA_HOME_17_X64}'
-                rm -rvf '${JAVA_HOME_21_X64}'
-            fi
+             if [ "$RUNNER_OS" == "Linux" ]; then
+                  sudo rm -rvf /usr/lib/mono
+                  sudo rm -rvf /usr/local/share/vcpkg
+                  sudo rm -rvf /usr/share/miniconda
+             elif [ "$RUNNER_OS" == "macOS" ]; then
+                  sudo rm -rvf "/Applications/Xcode_14.*.app"
+                  sudo rm -rvf "/Library/Frameworks/Mono.framework"
+                  sudo rm -rvf "/usr/bin/link"
+                  sudo rm -rvf "/usr/bin/link"
+                  sudo rm -rvf "/usr/local/miniconda"
+                  sudo rm -rvf "/usr/local/opt/geckodriver"
+                  sudo rm -rvf "/usr/local/share/chromedriver-mac-x64"
+                  sudo rm -rvf "/usr/local/share/edge_driver"
+                  sudo rm -rvf "/usr/local/share/vcpkg"
+                  sudo rm -rvf '${GOROOT_1_20_X64}'
+                  sudo rm -rvf '${GOROOT_1_21_X64}'
+                  sudo rm -rvf '${GOROOT_1_22_X64}'
+                  sudo rm -rvf '${JAVA_HOME_8_X64}'
+                  sudo rm -rvf '${JAVA_HOME_11_X64}'
+                  sudo rm -rvf '${JAVA_HOME_17_X64}'
+                  sudo rm -rvf '${JAVA_HOME_21_X64}'
+             elif [ "$RUNNER_OS" == "Windows" ]; then
+                  rm -rvf "C:\Miniconda"
+                  rm -rvf "C:\Program Files\dotnet"
+                  rm -rvf "C:\SeleniumWebDrivers\"
+                  rm -rvf "C:\selenium\"
+                  rm -rvf "C:\tools\Apache24"
+                  rm -rvf "C:\tools\nginx-1.27.0"
+                  rm -rvf "C:\vcpkg"
+                  rm -rvf '${JAVA_HOME_8_X64}'
+                  rm -rvf '${JAVA_HOME_11_X64}'
+                  rm -rvf '${JAVA_HOME_17_X64}'
+                  rm -rvf '${JAVA_HOME_21_X64}'
+             fi
         shell: bash
         continue-on-error: true
       - name: Setup XCode
@@ -76,6 +69,20 @@ jobs:
         run:   |
                if [ "$RUNNER_OS" == "macOS" ]; then
                     brew install autoconf-archive automake libtool md4c
+               elif [ "$RUNNER_OS" == "Linux" ]; then
+                    sudo apt-get update &&
+                    DEBIAN_FRONTEND=noninteractive sudo apt-get install -qq \
+                        autoconf \
+                        autoconf-archive \
+                        automake \
+                        libegl1-mesa-dev \
+                        libglu1-mesa-dev \
+                        libx11-xcb-dev \
+                        '^libxcb.*-dev' \
+                        libxi-dev \
+                        libxkbcommon-dev \
+                        libxkbcommon-x11-dev \
+                        libxrender-dev
                fi
         shell: bash
       - name: Checkout source
@@ -88,16 +95,15 @@ jobs:
       - name: Run vcpkg
         if: runner.os != 'Windows'
         uses: lukka/run-vcpkg@v11
-        with:
-          vcpkgJsonGlob: 'vcpkg.json'
-          runVcpkgInstall: true
       - name: Run vcpkg
         if: runner.os == 'Windows'
         uses: lukka/run-vcpkg@v11
         with:
           vcpkgDirectory: 'c:\vcpkg'
-          vcpkgJsonGlob: 'vcpkg.json'
-          runVcpkgInstall: true
+      - name: Build packages
+        uses: lukka/run-cmake@v10
+        with:
+          workflowPreset: '${{ matrix.platform }}'
       - name: Compress packages
         run: |
           tar -czpf '${{ github.workspace }}/${{ matrix.platform }}.tar.gz' -C '${{ github.workspace }}/vcpkg_installed' '${{ matrix.platform }}'

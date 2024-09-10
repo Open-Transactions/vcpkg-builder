@@ -1,9 +1,8 @@
 {
-  "$schema":
-      "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
-  "name": "opentxs-dependency-builder",
-  "builtin-baseline": "3508985146f1b1d248c67ead13f8f54be5b4f5da",
-  "version": "1",
+    "$schema":
+        "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
+    "name": "libopentxs-dependency-builder",
+    "version": "1",
     "dependencies": [
         "boost-algorithm",
         {
@@ -62,6 +61,16 @@
             "features": [
                 "gui",
                 "widgets"
+            ]
+        },
+        {
+            "name": "qtbase",
+            "platform": "android",
+            "default-features": false,
+            "features": [
+                "egl",
+                "gles2",
+                "opengl"
             ]
         },
         "qtdeclarative",
