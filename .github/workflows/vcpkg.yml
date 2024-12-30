@@ -9,22 +9,21 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-14-intel, macos-14-arm, windows-2022]
+        platform: [macos-arm, windows-2022]
         include:
-          - platform: macos-14-intel
-            runner: 'macos-14-large'
-            triplet: 'x64-osx-14'
-          - platform: macos-14-arm
-            runner: 'macos-14-xlarge'
-            triplet: 'arm64-osx-14'
+          - platform: macos-arm
+            runner: 'macos-14'
+            triplet: 'arm64-osx-ot'
           - platform: windows-2022
             runner: 'windows-2022-xl8'
             triplet: 'x64-windows'
     env:
       VCPKG_INSTALLED_DIR: '${{ github.workspace }}/vcpkg_installed/${{ matrix.platform }}'
+      VCPKG_OVERLAY_TRIPLETS: '${{ github.workspace }}/overlay/triplets'
       VCPKG_DEFAULT_TRIPLET: '${{ matrix.triplet }}'
       VCPKG_DEFAULT_HOST_TRIPLET: '${{ matrix.triplet }}'
-      VCPKG_OVERLAY_TRIPLETS: '${{ github.workspace }}/overlay/triplets'
+      VCPKG_WINDOWS_MAX_PATH_HACK: 'C:\vcpkgbuild'
+      OT_OSX_DEPLOYMENT_TARGET: 14
     steps:
       - name:  Get more disk space
         run:   |
